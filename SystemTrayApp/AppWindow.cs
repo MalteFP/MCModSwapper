@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using static System.Windows.Forms.AxHost;
 
 namespace SystemTrayApp
 {
@@ -45,6 +46,8 @@ namespace SystemTrayApp
 
             this.refreshImage();
             this.createButtonsForExtraMods();
+
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void createButtonsForExtraMods()
