@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.SystemTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.ToggleButton = new System.Windows.Forms.Button();
+            this.myPictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.myPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // SystemTrayIcon
@@ -41,7 +43,7 @@
             // 
             // ToggleButton
             // 
-            this.ToggleButton.Location = new System.Drawing.Point(34, 78);
+            this.ToggleButton.Location = new System.Drawing.Point(30, 159);
             this.ToggleButton.Name = "ToggleButton";
             this.ToggleButton.Size = new System.Drawing.Size(221, 90);
             this.ToggleButton.TabIndex = 0;
@@ -49,13 +51,26 @@
             this.ToggleButton.UseVisualStyleBackColor = true;
             this.ToggleButton.Click += new System.EventHandler(this.ToggleButton_Click);
             // 
+            // myPictureBox
+            // 
+            this.myPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.myPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.myPictureBox.Name = "myPictureBox";
+            this.myPictureBox.Size = new System.Drawing.Size(275, 142);
+            this.myPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.myPictureBox.TabIndex = 1;
+            this.myPictureBox.TabStop = false;
+            // 
             // AppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(274, 266);
+            this.Controls.Add(this.myPictureBox);
             this.Controls.Add(this.ToggleButton);
             this.Name = "AppWindow";
+            ((System.ComponentModel.ISupportInitialize)(this.myPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -64,6 +79,7 @@
 
         private System.Windows.Forms.NotifyIcon SystemTrayIcon;
         private System.Windows.Forms.Button ToggleButton;
+        public System.Windows.Forms.PictureBox myPictureBox;
     }
 }
 

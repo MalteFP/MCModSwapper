@@ -13,6 +13,11 @@ namespace SystemTrayApp
 {
     public partial class AppWindow : Form
     {
+        readonly string targetFolder = @"C:\Users\malte_c8acp3s\AppData\Roaming\.minecraft\mods";
+        readonly string sourceFolder1 = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Newest Mods";
+        readonly string sourceFolder2 = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Skyblock Mods";
+        readonly string extraModsFolder = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Extra Mods";
+
         public AppWindow()
         {
             InitializeComponent();
@@ -37,8 +42,21 @@ namespace SystemTrayApp
 
             this.Resize += WindowResize;
             this.FormClosing += WindowClosing;
+
+            this.refreshImage();
+            this.createButtonsForExtraMods();
         }
-        
+
+        private void createButtonsForExtraMods()
+        {
+            string[] folders = Directory.GetDirectories(extraModsFolder);
+
+            foreach (string folder in folders)
+            {
+                //
+            }
+        }
+
         private void SystemTrayIconDoubleClick(object sender, MouseEventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -83,12 +101,18 @@ namespace SystemTrayApp
             return true;
         }
 
+        private void refreshImage()
+        {
+            string imageFilename = Path.Combine(targetFolder, "image.jpg");
+            
+            if (!File.Exists(imageFilename))
+                imageFilename = "";
+
+            myPictureBox.ImageLocation = imageFilename;
+        }
+
         private void ToggleButton_Click(object sender, EventArgs e)
         {
-            string targetFolder = @"C:\Users\malte_c8acp3s\AppData\Roaming\.minecraft\mods";
-            string sourceFolder1 = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Newest Mods";
-            string sourceFolder2 = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Skyblock Mods";
-
             bool folder1 = isFolderContentsIdentical(targetFolder, sourceFolder1);
 
             string copyFrom = folder1 ? sourceFolder2 : sourceFolder1;
@@ -109,6 +133,7 @@ namespace SystemTrayApp
 
             Button button = sender as Button;
             button.Text = folder1 ? "Install Newest" : "Install Skyblock";
+            this.refreshImage();
 
         }
     }
