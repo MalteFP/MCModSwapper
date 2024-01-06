@@ -17,7 +17,7 @@ namespace SystemTrayApp
         readonly string sourceFolder1 = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Newest Mods";
         readonly string sourceFolder2 = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Skyblock Mods";
         readonly string extraModsFolder = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Extra Mods";
-
+                
         public AppWindow()
         {
             InitializeComponent();
@@ -51,10 +51,25 @@ namespace SystemTrayApp
         {
             string[] folders = Directory.GetDirectories(extraModsFolder);
 
+            int buttons = 0;
             foreach (string folder in folders)
             {
-                //
+                Button modButton = new Button();
+                
+                modButton.Location = new Point(30, 270+(buttons*30));
+                modButton.Name = "ModButton"+buttons.ToString();
+                modButton.Size = new Size(221, 25);
+                modButton.TabIndex = buttons;
+                modButton.Text = Path.GetFileName(folder);
+                modButton.UseVisualStyleBackColor = true;
+                modButton.Click += new System.EventHandler(this.ModButton_Click);
+                buttons++;
+                this.Controls.Add(modButton);
             }
+
+            var size = this.Size;
+            size.Height += buttons * 30;
+            this.Size = size;
         }
 
         private void SystemTrayIconDoubleClick(object sender, MouseEventArgs e)
@@ -110,6 +125,7 @@ namespace SystemTrayApp
 
             myPictureBox.ImageLocation = imageFilename;
         }
+                
 
         private void ToggleButton_Click(object sender, EventArgs e)
         {
@@ -117,6 +133,16 @@ namespace SystemTrayApp
 
             string copyFrom = folder1 ? sourceFolder2 : sourceFolder1;
 
+            install(copyFrom);
+
+            Button button = sender as Button;
+            button.Text = folder1 ? "Install Newest" : "Install Skyblock";
+            this.refreshImage();
+
+        }
+
+        private void install(string copyFrom)
+        {
             // Delete all files
             string[] filePaths = Directory.GetFiles(targetFolder);
             foreach (string filePath in filePaths)
@@ -130,11 +156,13 @@ namespace SystemTrayApp
                 string destinationFilename = Path.Combine(targetFolder, filename);
                 File.Copy(filePath, destinationFilename);
             }
+        }
 
+        private void ModButton_Click(object sender, EventArgs e)
+        {
             Button button = sender as Button;
-            button.Text = folder1 ? "Install Newest" : "Install Skyblock";
+            install(Path.Combine(extraModsFolder, button.Text));
             this.refreshImage();
-
         }
     }
 }
