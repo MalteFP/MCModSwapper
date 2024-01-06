@@ -47,6 +47,7 @@
             this.ToggleButton.TabIndex = 0;
             this.ToggleButton.Text = "Toggle";
             this.ToggleButton.UseVisualStyleBackColor = true;
+            this.ToggleButton.Click += new System.EventHandler(this.ToggleButton_Click);
             // 
             // AppWindow
             // 

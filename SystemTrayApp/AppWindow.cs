@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace SystemTrayApp
 {
@@ -64,6 +65,51 @@ namespace SystemTrayApp
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+
+        private bool isFolderContentsIdentical(string testFolder, string baselineFolder)
+        {
+            string[] filePaths = Directory.GetFiles(baselineFolder);
+
+            foreach (string filePath in filePaths)
+            {
+                string filename = Path.GetFileName(filePath);
+                string destinationFilename = Path.Combine(testFolder, filename);
+                if (!File.Exists(destinationFilename))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private void ToggleButton_Click(object sender, EventArgs e)
+        {
+            string targetFolder = @"C:\Users\malte_c8acp3s\AppData\Roaming\.minecraft\mods";
+            string sourceFolder1 = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Newest Mods";
+            string sourceFolder2 = @"C:\Users\malte_c8acp3s\OneDrive\Skrivebord\Skyblock Mods";
+
+            bool folder1 = isFolderContentsIdentical(targetFolder, sourceFolder1);
+
+            string copyFrom = folder1 ? sourceFolder2 : sourceFolder1;
+
+            // Delete all files
+            string[] filePaths = Directory.GetFiles(targetFolder);
+            foreach (string filePath in filePaths)
+                File.Delete(filePath);
+
+            // copy files
+            filePaths = Directory.GetFiles(copyFrom);
+            foreach (string filePath in filePaths)
+            {
+                string filename = Path.GetFileName(filePath);
+                string destinationFilename = Path.Combine(targetFolder, filename);
+                File.Copy(filePath, destinationFilename);
+            }
+
+            Button button = sender as Button;
+            button.Text = folder1 ? "Install Newest" : "Install Skyblock";
+
         }
     }
 }
