@@ -30,19 +30,30 @@
         {
             this.components = new System.ComponentModel.Container();
             this.SystemTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ToggleButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // systemTrayIcon
+            // SystemTrayIcon
             // 
             this.SystemTrayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.SystemTrayIcon.Visible = true;
             this.SystemTrayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.SystemTrayIconDoubleClick);
+            // 
+            // ToggleButton
+            // 
+            this.ToggleButton.Location = new System.Drawing.Point(34, 78);
+            this.ToggleButton.Name = "ToggleButton";
+            this.ToggleButton.Size = new System.Drawing.Size(221, 90);
+            this.ToggleButton.TabIndex = 0;
+            this.ToggleButton.Text = "Toggle";
+            this.ToggleButton.UseVisualStyleBackColor = true;
             // 
             // AppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.ToggleButton);
             this.Name = "AppWindow";
             this.ResumeLayout(false);
 
@@ -51,6 +62,7 @@
         #endregion
 
         private System.Windows.Forms.NotifyIcon SystemTrayIcon;
+        private System.Windows.Forms.Button ToggleButton;
     }
 }
 
